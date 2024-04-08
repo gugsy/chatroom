@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ChatRoomService {
 
-    void sendMessage(String message, Authentication authuthentication);
+    void sendMessage(String message);
     List<ChatRoomMessage> getMessagesByUserName(String userName);
     List<ChatRoomMessage> getAllMessages();
     void deleteMessage(Long id);

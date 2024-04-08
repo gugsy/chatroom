@@ -1,17 +1,22 @@
 package com.chatroom.model;
 
+import com.chatroom.service.ChatRoomServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.*;
 
 public class ChatRoomHandler implements WebSocketHandler {
 
+    private final ChatRoomServiceImpl chatRoomService;
+
     private static final Logger log = LoggerFactory.getLogger(ChatRoomHandler.class);
+
+    public ChatRoomHandler(ChatRoomServiceImpl chatRoomService) {
+        this.chatRoomService = chatRoomService;
+    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        //get all chat messages from database
-
         log.info("User connected to chat: {}", session.getId());
     }
 
@@ -19,8 +24,9 @@ public class ChatRoomHandler implements WebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         if (message instanceof TextMessage textMessage) {
             String chatMessage = textMessage.getPayload();
-            //save chat message to database
+            chatRoomService.sendMessage(chatMessage);
             log.info("Received message from user {}: {}", session.getId(), chatMessage);
+            //add username in web socket session
             session.sendMessage(new TextMessage("Your message was received: " + chatMessage));
         } else {
             log.warn("Received unsupported message type from user {}", session.getId());

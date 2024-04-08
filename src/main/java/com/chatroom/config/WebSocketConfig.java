@@ -13,13 +13,20 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
+    private final ChatRoomServiceImpl chatRoomService;
+    public WebSocketConfig(ChatRoomServiceImpl chatRoomService) {
+        this.chatRoomService = chatRoomService;
+    }
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler(), "/websocket-chatroom");
+        registry.addHandler(webSocketHandler(), "/websocket-chatroom")
+                .addInterceptors(new WebSocketHandShakeInterceptor());
     }
     @Bean
     public WebSocketHandler webSocketHandler() {
-        return new ChatRoomHandler();
+        return new ChatRoomHandler(chatRoomService);
     }
+
 }
 

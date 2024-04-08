@@ -1,6 +1,6 @@
 package com.chatroom.model;
 
-public enum MessageType {
+public enum MessageEnum {
 
     CHAT,
     JOIN,

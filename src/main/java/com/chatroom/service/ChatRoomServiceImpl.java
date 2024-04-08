@@ -24,7 +24,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
 
     @Override
-    public void sendMessage(String message, Authentication authuthentication) {
+    public void sendMessage(String message) {
         ChatRoomMessage message1 = new ChatRoomMessageBuilder.Builder()
                 .message(message)
                 .timestamp(LocalDateTime.now())

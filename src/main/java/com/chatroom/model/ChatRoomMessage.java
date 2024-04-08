@@ -19,7 +19,7 @@ public class ChatRoomMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private MessageType type;
+    private MessageEnum type;
     private String content;
     private String message;
     private LocalDateTime timestamp;
