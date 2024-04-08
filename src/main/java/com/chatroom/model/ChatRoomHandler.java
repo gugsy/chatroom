@@ -1,4 +1,4 @@
-package com.chatroom.config;
+package com.chatroom.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ public class ChatRoomHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-
+        //get all chat messages from database
 
         log.info("User connected to chat: {}", session.getId());
     }
@@ -19,6 +19,7 @@ public class ChatRoomHandler implements WebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         if (message instanceof TextMessage textMessage) {
             String chatMessage = textMessage.getPayload();
+            //save chat message to database
             log.info("Received message from user {}: {}", session.getId(), chatMessage);
             session.sendMessage(new TextMessage("Your message was received: " + chatMessage));
         } else {

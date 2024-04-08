@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Server Chatroom API
+  version: 1.0.0
+  description:
+    Server Chatroom API exposes endpoints for Server Chatroom
+
+paths:
+  /login-api/v1:
+    post:
+      summary: Login to chatroom using Basic Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: String
+          description: A string value that represents the first name of the user
+          pattern: ^(?!.{256})[a-z0-9]+(#-_[a-z0-9]+)*$
+          example: john
+        password:
+          description: This represents the password of the user
+          pattern: ^(?!.{256})[a-z0-9]+(#-_[a-z0-9]+)*$
+          example: doe
+
+
