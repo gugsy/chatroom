@@ -7,9 +7,11 @@ import com.chatroom.repository.ChatRoomMessageJAPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ChatRoomServiceImpl implements ChatRoomService{
@@ -24,11 +26,11 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
 
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(String message, WebSocketSession session) {
         ChatRoomMessage message1 = new ChatRoomMessageBuilder.Builder()
                 .message(message)
                 .timestamp(LocalDateTime.now())
-                .userName("user")
+                .userName(Objects.requireNonNull(session.getPrincipal()).getName())
                 .chatRoomId(chatRoomId.getChatRoomId())
                 .build();
         chatRoomMessageJAPRepository.save(message1);
@@ -36,13 +38,25 @@ public class ChatRoomServiceImpl implements ChatRoomService{
     }
 
     @Override
-    public List<ChatRoomMessage> getMessagesByUserName(String userName) {
-        return null;
+    public void sendMessage(String message, Authentication authentication) {
+        ChatRoomMessage message1 = new ChatRoomMessageBuilder.Builder()
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .userName(authentication.getName())
+                .chatRoomId(chatRoomId.getChatRoomId())
+                .build();
+        chatRoomMessageJAPRepository.save(message1);
+    }
+
+    @Override
+    public List<ChatRoomMessage> getMessagesByUserName(String username) {
+
+        return chatRoomMessageJAPRepository.findByUsername(username);
     }
 
     @Override
     public List<ChatRoomMessage> getAllMessages() {
-        return null;
+        return chatRoomMessageJAPRepository.findAll();
     }
 
     @Override
