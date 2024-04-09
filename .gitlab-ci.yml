@@ -1,0 +1,61 @@
+image: maven:latest
+
+stages:
+  - build
+  - test
+  - deploy-staging
+  - release-ticket
+  - deploy-production
+
+build-job:
+  stage: build
+  script:
+    - echo "Building Application!"
+
+unit-tests:
+  stage: test
+  script:
+    - mvn test
+  only:
+    - merge_requests
+    - main
+    - feature/websocket-chatroom
+
+sonar-scan:
+  stage: test
+  script:
+    - echo "Sonar Scan Checking Quality Gates!"
+  needs:
+    - unit-tests
+  only:
+    - merge_requests
+    - main
+    - feature/websocket-chatroom
+
+load-tests:
+  stage: test
+  script:
+    - echo "How much load can this application handle?"
+
+# Add deployment image scans
+# Add J Frog Scan
+# Add X-Ray Scan
+
+deploy-staging:
+  stage: deploy-staging
+  script:
+    - echo "Deploying to Staging Environment!
+  environment: staging
+
+#can generate a release ticket and manually trigger the production deployment in a release, more control that way
+release-ticket:
+  stage: release-ticket
+  script:
+    - echo "Create release ticket!
+
+deploy-prod:
+  stage: deploy-production
+  script:
+    - echo "Deploying to Production Environment!"
+  environment: production
+  when: manual
