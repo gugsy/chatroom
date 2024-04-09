@@ -51,7 +51,7 @@ release-ticket:
   needs:
     - deploy-staging
   script:
-    - echo "Create release ticket!
+    - echo "Create release ticket!"
 
 deploy-prod:
   stage: deploy-production
