@@ -3,9 +3,9 @@ image: maven:latest
 stages:
   - build
   - test
-  - deploy-staging
-  - release-ticket
-  - deploy-production
+  - staging
+  - release
+  - production
 
 build-job:
   stage: build
@@ -42,20 +42,19 @@ load-tests:
 # Add X-Ray Scan
 
 deploy-staging:
-  stage: deploy-staging
+  stage: staging
   script:
     - echo "Deploying to Staging Environment!
 
-#can generate a release ticket and manually trigger the production deployment in a release, more control that way
 release-ticket:
-  stage: release-ticket
+  stage: release
   needs:
     - deploy-staging
   script:
     - echo "Create release ticket!
 
 deploy-prod:
-  stage: deploy-production
+  stage: production
   script:
     - echo "Deploying to Production Environment!"
   when: manual
