@@ -1,4 +1,4 @@
-package com.chatroom.config;
+package com.chatroom.configuration;
 
 import com.chatroom.model.ChatRoomHandler;
 import com.chatroom.service.ChatRoomServiceImpl;

@@ -1,4 +1,4 @@
-package com.chatroom.config;
+package com.chatroom.configuration;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.ServerHttpRequest;
@@ -8,6 +8,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -28,7 +29,7 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
 
             // Decode the Base64-encoded credentials
             byte[] decodedCredentials = Base64Utils.decodeFromString(credentials);
-            String decodedCredentialsString = new String(decodedCredentials);
+            String decodedCredentialsString = new String(decodedCredentials, StandardCharsets.UTF_8);
 
             // Split the decoded credentials into username and password
             String[] splitCredentials = decodedCredentialsString.split(":");
@@ -50,7 +51,7 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                Exception ex) {
-        String username = request.getPrincipal().getName();
+        String username = (String) request.getPrincipal().getName();
         System.out.println("User authenticated successfully: " + username);
     }
 }

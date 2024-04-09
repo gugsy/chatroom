@@ -1,6 +1,6 @@
 package com.chatroom.service;
 
-import com.chatroom.config.ChatRoomId;
+import com.chatroom.configuration.ChatRoomId;
 import com.chatroom.model.ChatRoomMessage;
 import com.chatroom.model.ChatRoomMessageBuilder;
 import com.chatroom.repository.ChatRoomMessageJAPRepository;
