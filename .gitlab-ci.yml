@@ -45,11 +45,12 @@ deploy-staging:
   stage: deploy-staging
   script:
     - echo "Deploying to Staging Environment!
-  environment: staging
 
 #can generate a release ticket and manually trigger the production deployment in a release, more control that way
 release-ticket:
   stage: release-ticket
+  needs:
+    - deploy-staging
   script:
     - echo "Create release ticket!
 
@@ -57,5 +58,4 @@ deploy-prod:
   stage: deploy-production
   script:
     - echo "Deploying to Production Environment!"
-  environment: production
   when: manual
