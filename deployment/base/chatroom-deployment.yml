@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: YOUR_DEPLOYMENT_NAME
+  labels:
+    app: YOUR_APP_NAME
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: CHATROOM
+  template:
+    metadata:
+      labels:
+        app: CHATROOM
+    spec:
+      containers:
+        - name: chatroom
+          image: chatroom:1.0.0
+          ports:
+            - containerPort: 8080 # Example port, adjust as needed
+          envFrom:
+            - secretRef:
+                name: chatroom-secret
+          env:
+            - name: SPRING_DATA_MYSQL_URI
+              value: jdbc:mysql://$(CHATROOM_MYSQL_USERNAME):$(CHATROOM_MYSQL_PASSWORD)@localhost:3306/mydatabase?useSSL=false&serverTimezone=UTC
+          # Add more environment variables if needed

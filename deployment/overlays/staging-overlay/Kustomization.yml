@@ -1,0 +1,2 @@
+#include the base resources
+# include chatroom-deployment-patch.yml resource

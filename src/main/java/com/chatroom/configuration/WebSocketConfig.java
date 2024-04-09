@@ -1,6 +1,6 @@
 package com.chatroom.configuration;
 
-import com.chatroom.model.ChatRoomHandler;
+import com.chatroom.model.ChatRoom;
 import com.chatroom.service.ChatRoomServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
     @Bean
     public WebSocketHandler webSocketHandler() {
-        return new ChatRoomHandler(chatRoomService);
+        return new ChatRoom.ChatRoomHandler(chatRoomService);
     }
 
 }

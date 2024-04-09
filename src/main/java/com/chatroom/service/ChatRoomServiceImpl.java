@@ -61,6 +61,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
     @Override
     public void deleteMessage(Long id) {
+        chatRoomMessageJAPRepository.deleteById(id);
 
     }
 }
