@@ -3,9 +3,9 @@ image: maven:latest
 stages:
   - build
   - test
-  - staging
-  - release
-  - production
+  - deploy-staging
+  - release-ticket
+  - deploy-production
 
 build-job:
   stage: build
@@ -42,19 +42,19 @@ load-tests:
 # Add X-Ray Scan
 
 deploy-staging:
-  stage: staging
+  stage: deploy-staging
   script:
-    - echo "Deploying to Staging Environment!
+    - echo "Deploying to Staging Environment!"
 
 release-ticket:
-  stage: release
+  stage: release-ticket
   needs:
     - deploy-staging
   script:
     - echo "Create release ticket!
 
 deploy-prod:
-  stage: production
+  stage: deploy-production
   script:
     - echo "Deploying to Production Environment!"
   when: manual
