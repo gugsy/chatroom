@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,37 +22,22 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 @ExtendWith(MockitoExtension.class)
-public class ChatRoomHandlerTest {
+ class ChatRoomHandlerTest {
 
     @Mock
     private ChatRoomServiceImpl chatRoomService;
 
     @InjectMocks
-    private ChatRoom.ChatRoomHandler chatRoomHandler;
+    private ChatRoomHandler chatRoomHandler;
 
     private WebSocketSession mockSession;
 
     @BeforeEach
     void setUp() {
         mockSession = mock(WebSocketSession.class);
-        Authentication auth = new TestingAuthenticationToken("testUser", "testCredentials");
-        when(mockSession.getPrincipal()).thenReturn(auth);
+        when(mockSession.getId()).thenReturn("chatUser");
     }
 
-/*    @Test
-    void afterConnectionEstablished_shouldSendMessageAndRetrieveMessages() throws IOException {
-        // Arrange
-        String username = "TESTUSER";
-        when(chatRoomService.getMessagesByUserName(username)).thenReturn(Collections.emptyList());
-
-        // Act
-        chatRoomHandler.afterConnectionEstablished(mockSession);
-
-        // Assert
-        verify(mockSession).sendMessage(new TextMessage("TESTUSER ,you have successfully connected to our Chatroom"));
-        verify(chatRoomService).getMessagesByUserName(username);
-        verify(mockSession).sendMessage(new TextMessage("TESTUSER ,you currently do not have any previous chats in our Chatroom"));
-    }*/
 
     @Test
     void handleMessage_withTextMessage_shouldSendMessageAndLog() throws Exception {
@@ -64,10 +50,11 @@ public class ChatRoomHandlerTest {
 
         // Assert
         verify(chatRoomService).sendMessage(message, mockSession);
-        verify(mockSession).sendMessage(new TextMessage("TESTUSER, message was received: " + message));
+        verify(mockSession).sendMessage(new TextMessage("CHATUSER, message was received: " + message));
+
     }
 
-    @Test
+        @Test
     void handleMessage_withUnsupportedMessage_shouldCloseSession() throws Exception {
         // Arrange
         WebSocketMessage<String> unsupportedMessage = mock(WebSocketMessage.class);
@@ -88,6 +75,6 @@ public class ChatRoomHandlerTest {
         chatRoomHandler.handleTransportError(mockSession, exception);
 
         // Assert
-        verify(mockSession).sendMessage(new TextMessage("TESTUSER, your session has been terminated due to an error "));
+        verify(mockSession).sendMessage(new TextMessage("CHATUSER, your session has been terminated due to an error "));
     }
 }

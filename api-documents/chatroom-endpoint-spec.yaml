@@ -1,8 +1,85 @@
 openapi: 3.0.0
 info:
-  title: Server Chatroom API
+  title:  Chatroom Messaging API
+  description: API Document for sending and managing chat messages
   version: 1.0.0
-  description:
-    Server Chatroom API exposes endpoints for Server Chatroom
-
-
+paths:
+  /chat-api/v1/chat/send:
+    post:
+      summary: Send a chat message
+      operationId: sendChatMessage
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Chat sent successfully
+  /chat-api/v1/chat/all:
+    get:
+      summary: Get all chats
+      operationId: getAllChats
+      responses:
+        '200':
+          description: List of all chats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatMessage'
+  /chat-api/v1/chat/{username}:
+    get:
+      summary: Get chats by username
+      operationId: getChatsByUsername
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of chats by username
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatMessage'
+        '404':
+          description: No chats found for the username
+  /chat-api/v1/delete/{id}:
+    delete:
+      summary: Delete a chat by ID
+      operationId: deleteChat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Message deleted successfully
+  ws://localhost:8080/websocket-chatroom:
+    get:
+      summary: Websocket endpoint for chat messages
+      operationId: chatWebsocket
+      responses:
+        '200':
+          description: Websocket connection established
+components:
+  schemas:
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        sender:
+          type: string

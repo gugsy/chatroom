@@ -6,7 +6,7 @@ public class ChatRoomMessageBuilder {
     public static class Builder {
         private String message;
         private LocalDateTime timestamp;
-        private Long chatRoomId;
+        private Long randomChatRoomId;
         private String userName;
 
         public Builder message(String message) {
@@ -26,7 +26,7 @@ public class ChatRoomMessageBuilder {
             if (chatRoomId == null) {
                 throw new IllegalArgumentException("Chat room ID cannot be null");
             }
-            this.chatRoomId = chatRoomId;
+            this.randomChatRoomId = chatRoomId;
             return this;
         }
 
@@ -39,13 +39,13 @@ public class ChatRoomMessageBuilder {
             if (message == null || message.isEmpty()) {
                 throw new IllegalStateException("Message must be set");
             }
-            if (chatRoomId == null) {
+            if (randomChatRoomId == null) {
                 throw new IllegalStateException("Chat room ID must be set");
             }
             ChatRoomMessage chatMessage = new ChatRoomMessage();
             chatMessage.setMessage(this.message);
             chatMessage.setTimestamp(this.timestamp);
-            chatMessage.setChatRoomId(this.chatRoomId);
+            chatMessage.setChatRoomId(this.randomChatRoomId);
             chatMessage.setUsername(this.userName);
             return chatMessage;
         }

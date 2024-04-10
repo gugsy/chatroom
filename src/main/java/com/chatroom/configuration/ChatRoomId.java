@@ -3,17 +3,16 @@ package com.chatroom.configuration;
 import java.util.Random;
 
 public class ChatRoomId {
-    private final Long chatRoomId;
+    private final Long randomChatRoomId;
 
     public ChatRoomId() {
-        this.chatRoomId = generateRandomId();
+        this.randomChatRoomId = generateRandomId();
     }
 
     private Long generateRandomId() {
         return (long) (new Random().nextInt(9000));
     }
-    // TODO see if I can use Lombok instead for this getter
     public Long getChatRoomId() {
-        return chatRoomId;
+        return randomChatRoomId;
     }
 }

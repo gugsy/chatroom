@@ -1,3 +1,6 @@
+/*
+    TO DO: Implement the WebSocketHandShakeInterceptor class to authenticate the user before establishing a WebSocket connection.
+
 package com.chatroom.configuration;
 
 import org.springframework.http.HttpHeaders;
@@ -55,3 +58,4 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
         System.out.println("User authenticated successfully: " + username);
     }
 }
+*/

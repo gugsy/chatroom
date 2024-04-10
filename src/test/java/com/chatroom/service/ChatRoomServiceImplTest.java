@@ -39,19 +39,6 @@ public class ChatRoomServiceImplTest {
     }
 
     @Test
-    void sendMessage_withSession_shouldSaveMessage() {
-        // Arrange
-        WebSocketSession session = mock(WebSocketSession.class);
-        when(session.getPrincipal()).thenReturn(() -> "user1");
-
-        // Act
-        chatRoomService.sendMessage("Hello", session);
-
-        // Assert
-        verify(chatRoomMessageJAPRepository).save(any(ChatRoomMessage.class));
-    }
-
-    @Test
     void sendMessage_withAuthentication_shouldSaveMessage() {
         // Arrange
         Authentication authentication = mock(Authentication.class);

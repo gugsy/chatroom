@@ -11,17 +11,16 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ChatRoomServiceImpl implements ChatRoomService{
-    @Autowired
     ChatRoomMessageJAPRepository chatRoomMessageJAPRepository;
     private final ChatRoomId chatRoomId;
 
     @Autowired
-    public ChatRoomServiceImpl(ChatRoomId chatRoomId) {
+    public ChatRoomServiceImpl(ChatRoomId chatRoomId, ChatRoomMessageJAPRepository chatRoomMessageJAPRepository) {
         this.chatRoomId = chatRoomId;
+        this.chatRoomMessageJAPRepository = chatRoomMessageJAPRepository;
     }
 
 
@@ -30,7 +29,8 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         ChatRoomMessage message1 = new ChatRoomMessageBuilder.Builder()
                 .message(message)
                 .timestamp(LocalDateTime.now())
-                .userName(Objects.requireNonNull(session.getPrincipal()).getName())
+          //in the event of authentication via the websocket, the username will be retrieved from the session instead of the session id
+                .userName(session.getId())
                 .chatRoomId(chatRoomId.getChatRoomId())
                 .build();
         chatRoomMessageJAPRepository.save(message1);

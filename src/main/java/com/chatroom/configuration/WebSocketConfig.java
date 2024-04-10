@@ -1,6 +1,5 @@
 package com.chatroom.configuration;
 
-import com.chatroom.model.ChatRoom;
 import com.chatroom.service.ChatRoomServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +20,16 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler(), "/websocket-chatroom")
-                .addInterceptors(new WebSocketHandShakeInterceptor());
+                .setAllowedOrigins("*");
+
+        /* TODO: To enable the websocket to authenticate the user, add the following code snippet:
+          .addInterceptors(new WebSocketHandShakeInterceptor());
+        **/
+
     }
     @Bean
     public WebSocketHandler webSocketHandler() {
-        return new ChatRoom.ChatRoomHandler(chatRoomService);
+        return new ChatRoomHandler(chatRoomService);
     }
 
 }
