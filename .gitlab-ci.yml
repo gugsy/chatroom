@@ -19,7 +19,6 @@ unit-tests:
   only:
     - merge_requests
     - main
-    - feature/websocket-chatroom
 
 sonar-scan:
   stage: test
@@ -30,7 +29,6 @@ sonar-scan:
   only:
     - merge_requests
     - main
-    - feature/websocket-chatroom
 
 load-tests:
   stage: test
