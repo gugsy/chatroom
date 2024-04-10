@@ -1,6 +1,7 @@
 ## Spring Boot ChatRoom Application with Basic Authentication and WebSocket
 
-## This Spring Boot application demonstrates a simple server chat application with basic authentication for user login and WebSocket protocol for real-time communication. The application also includes CRUD operations for sending, receiving and deleting chats using RESTful API endpoints. In this repository  you will also find commented out code highlighted with TODO commnets for a feature that would implement basic authentication through the websocket.
+## Description
+This Spring Boot application demonstrates a simple server chat application with basic authentication for user login and WebSocket protocol for real-time communication. The application also includes CRUD operations for sending, receiving and deleting chats using RESTful API endpoints. In this repository  you will also find commented out code highlighted with TODO commnets for a feature that would implement basic authentication through the websocket.
 
 ## Technologies Used
     Java
