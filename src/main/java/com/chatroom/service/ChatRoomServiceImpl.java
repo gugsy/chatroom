@@ -29,7 +29,10 @@ public class ChatRoomServiceImpl implements ChatRoomService{
         ChatRoomMessage message1 = new ChatRoomMessageBuilder.Builder()
                 .message(message)
                 .timestamp(LocalDateTime.now())
-          //in the event of authentication via the websocket, the username will be retrieved from the session instead of the session id
+          /*
+              TODO: in the event of authentication via the websocket, the username will be retrieved from the session instead of the session id
+
+           */
                 .userName(session.getId())
                 .chatRoomId(chatRoomId.getChatRoomId())
                 .build();

@@ -1,5 +1,5 @@
 /*
-    TO DO: Implement the WebSocketHandShakeInterceptor class to authenticate the user before establishing a WebSocket connection.
+    TODO: Implement the WebSocketHandShakeInterceptor class to authenticate the user before establishing a WebSocket connection.
 
 package com.chatroom.configuration;
 
