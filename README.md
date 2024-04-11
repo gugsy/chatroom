@@ -13,7 +13,7 @@ This Spring Boot application demonstrates a simple server chat application with 
 
 ## Getting Started
 Clone the repository:
-git clone https://gitlab.com/gugsy/chatroom.git
+git clone https://github.com/gugsy/chatroom.git
 Navigate to the project directory:
 
 ## Configure Database:
